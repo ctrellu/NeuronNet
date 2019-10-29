@@ -2,13 +2,13 @@
 #include "neuron.h"
 
 const std::map<std::string, NeuronParams> Neuron::NeuronTypes{
-    {"RS",  {.02, .2,  -65, 8,   false}},
-    {"IB",  {.02, .2,  -55, 4,   false}},
-    {"CH",  {.02, .2,  -50, 2,   false}},
-    {"FS",  {.1,  .2,  -65, 2,   true }},
-    {"LTS", {.02, .25, -65, 2,   true }},
-    {"TC",  {.02, .25, -65, .05, false}},
-    {"RZ",  {.1,  .26, -65, 2,   false}}
+        {"RS",  {.02, .2,  -65, 8,   false}},
+        {"IB",  {.02, .2,  -55, 4,   false}},
+        {"CH",  {.02, .2,  -50, 2,   false}},
+        {"FS",  {.1,  .2,  -65, 2,   true }},
+        {"LTS", {.02, .25, -65, 2,   true }},
+        {"TC",  {.02, .25, -65, .05, false}},
+        {"RZ",  {.1,  .26, -65, 2,   false}}
 };
 
 double Neuron::firing_thresh = _FIRING_TH_;
@@ -32,7 +32,7 @@ void Neuron::set_params(const NeuronParams &np, double noise) {
     _recov = params.b*_poten;
 }
 
-void Neuron::set_type(std::string typ) {    
+void Neuron::set_type(std::string typ) {
     if (!type_exists(typ)) typ = "RS";
     _type = NeuronTypes.find(typ);
 }

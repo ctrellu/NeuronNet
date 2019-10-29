@@ -2,11 +2,13 @@
 #include "random.h"
 
 void Network::resize(const size_t &n, double inhib) {
+    std::cout << "boucle infinie" << std::endl;
     size_t old = size();
     neurons.resize(n);
     if (n <= old) return;
     size_t nfs(inhib*(n-old)+.5);
     set_default_params({{"FS", nfs}}, old);
+
 }
 
 void Network::set_default_params(const std::map<std::string, size_t> &types,
@@ -62,6 +64,15 @@ size_t Network::random_connect(const double &mean_deg, const double &mean_streng
     return num_links;
 }
 
+std::pair<size_t, double> Network::degree(const size_t& n) const {
+//faire avec neighbor
+    double Intensity(0.0);
+    for(auto voisin : neighbors(n)){
+        Intensity += voisin.second;
+    }
+    return {neighbors(n).size(),Intensity};
+}
+
 std::vector<double> Network::potentials() const {
     std::vector<double> vals;
     for (size_t nn=0; nn<size(); nn++)
@@ -69,11 +80,59 @@ std::vector<double> Network::potentials() const {
     return vals;
 }
 
+std::vector<std::pair<size_t, double> > Network:: neighbors(const size_t& n) const{
+    std::vector<std::pair<size_t, double>> connected;
+    for (linkmap::const_iterator it= links.lower_bound({n,0}); it!= links.cend() and ((it->first).first == n);++it) {
+        connected.push_back({(it->first).second, it->second});
+    }
+    return connected;
+}
+
+
 std::vector<double> Network::recoveries() const {
     std::vector<double> vals;
     for (size_t nn=0; nn<size(); nn++)
         vals.push_back(neurons[nn].recovery());
     return vals;
+}
+
+std::set<size_t> Network::step(const std::vector<double>& J) {
+
+    std::set<size_t> firing_neurons;
+
+    for(size_t i(0); i < neurons.size(); ++i) {
+        neurons[i].input(inputs(i,J[i]));
+    }
+    for(size_t i(0); i < neurons.size(); ++i) {
+        if(neurons[i].firing()) {
+            neurons[i].reset();
+            firing_neurons.insert(i);
+        } else {
+            neurons[i].step();
+        }
+    }
+
+    return firing_neurons;
+}
+
+double Network::inputs(const size_t& i, const size_t& J) {
+
+    double input(0.0);
+    for(auto neighbor : neighbors(i)) {
+        if(neurons[neighbor.first].firing()) {
+            if (neurons[neighbor.first].is_inhibitory()) {
+                input += neighbor.second;
+            } else {
+                 input += 0.5 * neighbor.second;
+            }
+        }
+    }
+    if (neurons[i].is_inhibitory()) {
+        input += 2.0/5.0 * J;
+    } else{
+        input += J;
+    }
+    return input;
 }
 
 void Network::print_params(std::ostream *_out) {

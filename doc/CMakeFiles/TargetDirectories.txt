@@ -1,0 +1,6 @@
+/Users/claratrellu/Documents/epfl/prog/serie_5/NeuronNet/doc/CMakeFiles/rebuild_cache.dir
+/Users/claratrellu/Documents/epfl/prog/serie_5/NeuronNet/doc/CMakeFiles/edit_cache.dir
+/Users/claratrellu/Documents/epfl/prog/serie_5/NeuronNet/doc/CMakeFiles/test.dir
+/Users/claratrellu/Documents/epfl/prog/serie_5/NeuronNet/doc/CMakeFiles/doc.dir
+/Users/claratrellu/Documents/epfl/prog/serie_5/NeuronNet/doc/CMakeFiles/testNeuronal.dir
+/Users/claratrellu/Documents/epfl/prog/serie_5/NeuronNet/doc/CMakeFiles/Neuronal.dir

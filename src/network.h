@@ -73,7 +73,9 @@ public:
   \return the number of links created.
  */
     size_t random_connect(const double&, const double &s=_STRENG_);
-    size_t size() const {return neurons.size();}
+    size_t size() const {
+        std::cout<<"boucle";
+        return neurons.size();}
 /*! 
   Calculates the number and total intensity of connections to neuron \p n.
   \param n : the index of the receiving neuron.
@@ -100,6 +102,11 @@ public:
                     std::ostream *_out=&std::cout);
     void print_head(const std::map<std::string, size_t>&, 
                     std::ostream *_out=&std::cout);
+/*
+ * Calculates the electrical current acting on a specific neuron i with a random thalamic input J
+ * \param  : the index of the n
+ */
+    double inputs(const size_t& i, const size_t& J);
 
 private:
     std::vector<Neuron> neurons;
