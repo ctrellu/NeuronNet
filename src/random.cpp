@@ -8,7 +8,7 @@ double RandomNumbers::uniform_double(double lower, double upper) {
 
 void RandomNumbers:: uniform_double(std::vector<double>& tab, double lower, double upper) {
     for(size_t i(0); i < tab.size(); ++i) {
-        tab.push_back(uniform_double(lower,upper));
+        tab[i] = uniform_double(lower,upper);
     }
 }
 
@@ -19,7 +19,7 @@ double RandomNumbers::normal(double mean, double sd) {
 
 void RandomNumbers:: normal(std::vector<double>& tab, double mean, double sd) {
     for(size_t i(0); i < tab.size(); ++i) {
-        tab.push_back(normal(mean,sd));
+        tab[i] = normal(mean,sd);
     }
 }
 
@@ -30,7 +30,7 @@ int RandomNumbers::poisson(double mean){
 
 void RandomNumbers::poisson(std::vector<int>&tab, double mean){
     for(size_t i(0); i < tab.size(); ++i) {
-        tab.push_back(poisson(mean));
+        tab[i] = poisson(mean);
     }
 }
 

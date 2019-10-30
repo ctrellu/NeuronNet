@@ -47,7 +47,6 @@ TEST(neuronTest, step) {
 
 TEST(networkTest, initialize) {
     net.resize(nlinks);
-    net.print_params(&std::cout);
     EXPECT_EQ(nlinks, net.size());
     double mean = 0, sdv = 0;
     std::vector<double> allv(net.recoveries());

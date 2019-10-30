@@ -73,9 +73,7 @@ public:
   \return the number of links created.
  */
     size_t random_connect(const double&, const double &s=_STRENG_);
-    size_t size() const {
-        std::cout<<"boucle";
-        return neurons.size();}
+    size_t size() const {return neurons.size();}
 /*! 
   Calculates the number and total intensity of connections to neuron \p n.
   \param n : the index of the receiving neuron.

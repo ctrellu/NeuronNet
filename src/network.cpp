@@ -2,7 +2,6 @@
 #include "random.h"
 
 void Network::resize(const size_t &n, double inhib) {
-    std::cout << "boucle infinie" << std::endl;
     size_t old = size();
     neurons.resize(n);
     if (n <= old) return;
@@ -101,9 +100,6 @@ std::set<size_t> Network::step(const std::vector<double>& J) {
     std::set<size_t> firing_neurons;
 
     for(size_t i(0); i < neurons.size(); ++i) {
-        neurons[i].input(inputs(i,J[i]));
-    }
-    for(size_t i(0); i < neurons.size(); ++i) {
         if(neurons[i].firing()) {
             neurons[i].reset();
             firing_neurons.insert(i);
@@ -111,24 +107,26 @@ std::set<size_t> Network::step(const std::vector<double>& J) {
             neurons[i].step();
         }
     }
-
+    for(size_t i(0); i < neurons.size(); ++i) {
+        neurons[i].input(inputs(i,J[i]));
+    }
     return firing_neurons;
 }
 
 double Network::inputs(const size_t& i, const size_t& J) {
 
     double input(0.0);
-    for(auto neighbor : neighbors(i)) {
+    for(auto& neighbor : neighbors(i)) {
         if(neurons[neighbor.first].firing()) {
             if (neurons[neighbor.first].is_inhibitory()) {
                 input += neighbor.second;
             } else {
-                 input += 0.5 * neighbor.second;
+                input += 0.5 * neighbor.second;
             }
         }
     }
     if (neurons[i].is_inhibitory()) {
-        input += 2.0/5.0 * J;
+        input += 2.0 * J /5.0;
     } else{
         input += J;
     }
