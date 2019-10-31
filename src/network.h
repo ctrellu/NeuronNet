@@ -100,9 +100,10 @@ public:
                     std::ostream *_out=&std::cout);
     void print_head(const std::map<std::string, size_t>&, 
                     std::ostream *_out=&std::cout);
-/*
+/*!
  * Calculates the electrical current acting on a specific neuron i with a random thalamic input J
- * \param  : the index of the n
+ * \param i : the index of the the neuron.
+ * \param J : the thalamic input corresponding to this neuron, this value corresponds to excitatory neurons.
  */
     double inputs(const size_t& i, const size_t& J);
 
