@@ -64,7 +64,6 @@ size_t Network::random_connect(const double &mean_deg, const double &mean_streng
 }
 
 std::pair<size_t, double> Network::degree(const size_t& n) const {
-//faire avec neighbor
     double Intensity(0.0);
     for(auto voisin : neighbors(n)){
         Intensity += voisin.second;
@@ -81,7 +80,7 @@ std::vector<double> Network::potentials() const {
 
 std::vector<std::pair<size_t, double> > Network:: neighbors(const size_t& n) const{
     std::vector<std::pair<size_t, double>> connected;
-    for (linkmap::const_iterator it= links.lower_bound({n,0}); it!= links.cend() and ((it->first).first == n);++it) {
+    for (linkmap::const_iterator it = links.lower_bound({n,0}); it!= links.cend() and ((it->first).first == n);++it) {
         connected.push_back({(it->first).second, it->second});
     }
     return connected;
@@ -126,7 +125,7 @@ double Network::inputs(const size_t& i, const size_t& J) {
     }
     if (neurons[i].is_inhibitory()) {
         input += 2.0 * J /5.0;
-    } else{
+    } else {
         input += J;
     }
     return input;
