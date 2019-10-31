@@ -98,7 +98,6 @@ std::vector<double> Network::recoveries() const {
 std::set<size_t> Network::step(const std::vector<double>& J) {
 
     std::set<size_t> firing_neurons;
-
     for(size_t i(0); i < neurons.size(); ++i) {
         if(neurons[i].firing()) {
             neurons[i].reset();
