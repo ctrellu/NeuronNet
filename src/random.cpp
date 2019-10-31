@@ -23,12 +23,12 @@ void RandomNumbers:: normal(std::vector<double>& tab, double mean, double sd) {
     }
 }
 
-int RandomNumbers::poisson(double mean){
+int RandomNumbers::poisson(double mean) {
     std::poisson_distribution<> poisson(mean);
     return poisson(rng);
 }
 
-void RandomNumbers::poisson(std::vector<int>&tab, double mean){
+void RandomNumbers::poisson(std::vector<int>&tab, double mean) {
     for(size_t i(0); i < tab.size(); ++i) {
         tab[i] = poisson(mean);
     }
